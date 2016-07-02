@@ -1,0 +1,653 @@
+body {
+    /*background: #FBFBFA url('../img/OSRLogoTransparent.png');*/
+    background: #fbfbfb;
+    
+}
+
+
+/* Toolbar area */
+
+
+/* Additionals */
+
+md-content.md-default-theme,
+md-content {
+    color: rgba(0, 0, 0, 0.87);
+    background-color: transparent;
+}
+
+md-toolbar.md-table-toolbar.sr-search {
+    background: #eee !important;
+}
+
+md-toolbar.md-table-toolbar.sr-selected {
+    background: #8BC34A !important;
+}
+
+md-toolbar.md-table-toolbar form > input {
+    border-style: none none solid;
+    color: rgba(0, 0, 0, 0.870588);
+    padding: 5px 10px;
+    border-bottom-width: 1px;
+    border-bottom-color: transparent;
+    background: #eee;
+    width: 100%;
+    margin: 0;
+    outline: none;
+}
+
+md-toolbar.gradient-toolbar {
+    color: rgb(255, 255, 255);
+    background: #4ca9a7;
+    background: -webkit-linear-gradient(#4ca9a7, #6485b8);
+    background: -o-linear-gradient(#4ca9a7, #6485b8);
+    background: -moz-linear-gradient(#4ca9a7, #6485b8);
+    background: linear-gradient(#4ca9a7, #6485b8);
+}
+
+md-toolbar.md-table-toolbar form > input:focus,
+md-toolbar.md-table-toolbar form > input:active {
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(221, 221, 221);
+    outline: none;
+}
+
+md-bottom-sheet .md-subheader {
+    line-height: 24px;
+}
+
+md-bottom-sheet md-icon {
+    margin-right: 7px;
+}
+
+md-dialog .md-actions .md-button,
+md-dialog md-dialog-actions .md-button {
+    margin: 8px 0 8px 8px;
+    padding: 0 15px;
+}
+
+button.md-button.md-button-sm{
+    line-height: 1.7em;
+    min-height: 1.1em;
+    padding: 0 5px;
+    min-width: 50px;
+}
+
+
+.menu {
+    background-color: transparent;
+    border: none;
+    height: 38px;
+    width: 36px;
+}
+
+md-toolbar,
+.md-toolbar-tools {
+    min-height: 35px;
+    height: auto;
+}
+
+md-toolbar h3 {
+    margin: auto;
+    font-weight: 200;
+}
+
+.main-logo {
+    width: 24px;
+    position: relative;
+    right: 10px;
+    top: 4px;
+}
+
+.no-padding{
+    padding: 0 !important;
+}
+.center-small {
+    width: auto;
+    margin: 1.5em auto;
+    padding: 1em 3em 2em;
+    background: #fff;
+    border: 1px solid #ebebeb;
+    box-shadow: rgba(0, 0, 0, 0.14902) 0px 1px 1px 0px, rgba(0, 0, 0, 0.09804) 0px 1px 2px 0px;
+}
+
+.center-medium {
+    width: auto;
+    min-width: 390px;
+    margin: 1.5em auto;
+    /*padding: 1em 3em 2em;*/
+    background: #fff;
+    border: 1px solid #ebebeb;
+    box-shadow: rgba(0, 0, 0, 0.14902) 0px 1px 1px 0px, rgba(0, 0, 0, 0.09804) 0px 1px 2px 0px;
+}
+
+button.menu-button.md-button:hover {
+    background: transparent;
+}
+
+a.md-no-style.md-button {
+    padding-left: 0;
+    margin-left: 0;
+}
+
+
+/* Sidenav area */
+
+md-list-item > button {
+    width: 100%;
+    text-align: left !important;
+    height: 70px;
+}
+
+
+/*md-icon{
+    height: 20px;
+    width: 20px;
+}*/
+
+.md-icon-sm {
+    height: 10px;
+    width: 10px;
+}
+
+md-icon.avatar {
+    margin-right: 15px;
+}
+
+md-list .md-button.selected {
+    color: #03a9f4;
+}
+
+button#main {
+    margin-bottom: 10px;
+}
+
+md-sidenav > md-toolbar {
+    height: 43px;
+}
+
+md-list-item {
+    overflow: hidden;
+}
+
+md-select-menu{
+    background: #fff;
+}
+
+
+.sidenav1 {
+    width: 210px;
+    height: 100%;
+    padding: 20px;
+    /*background-color: #6bc7cc;*/
+}
+
+.right-content {
+    /*background-color: tan;*/
+    height: 100%;
+    padding: 20px;
+}
+
+
+/* Primary content area */
+
+#content {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    min-height: 600px;
+}
+
+#content .md-button.contact {
+    background-color: transparent;
+    border: none;
+    width: 48px;
+    height: 48px;
+    margin: 8px auto 16px 0;
+    position: absolute;
+    top: 10px;
+    right: 40px;
+}
+
+#content md-icon.avatar {
+    margin-top: 10px;
+}
+
+#content .md-button.contact > md-icon {
+    fill: black;
+    width: 36px;
+    height: 36px;
+}
+
+#content .md-button.contact:active > md-icon {
+    background-color: #dadada;
+    border-radius: 75%;
+    padding: 4px;
+    transition: all 100ms ease-out 30ms;
+}
+
+
+/* Utils */
+
+.lock-size {
+    position: fixed;
+    bottom: 10px;
+    right: 30px;
+}
+
+.chat-input-message {
+    position: fixed;
+    bottom: 0px;
+    background: #D1F5A9;
+    border: 1px solid #CAE4AC;
+    padding: 0 10px;
+    left: -1px;
+    margin: 0;
+    box-shadow: 0px -2px 10px #CCEFA4;
+    width: 94%;
+    z-index: 1;
+    height: 63px;
+}
+
+
+/* Chat Styles */
+
+.discussion {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 50px 0;
+}
+
+.discussion li {
+    padding: 0.5rem;
+    overflow: hidden;
+    display: flex;
+}
+
+.discussion .avatar {
+    width: 40px;
+    position: relative;
+}
+
+.discussion .avatar img {
+    border-radius: 100%;
+    display: block;
+    width: 100%;
+}
+
+.other .avatar:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border: 5px solid white;
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+}
+
+.self {
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.self .messages {
+    order: 1;
+    border-bottom-right-radius: 0;
+}
+
+.self .avatar {
+    order: 2;
+}
+
+.self .avatar:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border: 5px solid white;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.messages {
+    background: white;
+    padding: 10px;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    max-width: 220px;
+}
+
+.messages p,
+.activity-stream p {
+    font-size: 0.8rem;
+    margin: 0 0 0.2rem 0;
+}
+
+.messages time,
+.activity-stream time {
+    font-size: 0.7rem;
+    color: #ccc;
+}
+
+.activity-stream {
+    background: white;
+    padding: 8px;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    transition: all 1s ease-out;
+}
+
+
+.module {
+    min-height: 650px;
+    height: 657px;
+    overflow-y: auto;
+}
+
+md-list-item.md-clickable:hover {
+    cursor: pointer;
+    /*transform: scale(1.01,1.01);*/
+    /*margin: 10px;*/
+    transition: all 0.3s;
+}
+
+md-dialog {
+    min-width: 240px;
+    max-width: 98%;
+    max-height: 90%;
+    position: relative;
+    overflow: auto;
+    box-shadow: 0 7px 8px -4px rgba(0,0,0,.2),0 13px 19px 2px rgba(0,0,0,.14),0 5px 24px 4px rgba(0,0,0,.12);
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+/* Typography support coming in 0.8.0 */
+
+.avatar {
+    position: relative;
+    height: 25px;
+    display: inline-block;
+    margin: 0;
+    vertical-align: middle;
+}
+
+md-bottom-sheet md-icon {
+    margin-right: 20px;
+}
+
+span.name {
+    font-weight: bold;
+    font-size: 1.1em;
+    padding-left: 5px;
+}
+
+
+/*Overwrite the styles of material design*/
+
+md-list-item>button {
+    width: 100%;
+    text-align: left!important;
+    height: 50px;
+}
+
+.full-width {
+    width: 100% !important;
+}
+
+/*g.nv-group.nv-series-0 > rect, 
+g.nv-group.nv-series-1 > rect,  
+g.nv-group.nv-series-2 > rect,  
+g.nv-group.nv-series-3 > rect,
+g.nv-group.nv-series-0>g, 
+g.nv-group.nv-series-1>g,  
+g.nv-group.nv-series-2>g,  
+g.nv-group.nv-series-3>g,
+.nv-legendWrap>.nv-legend>g>g.nv-series:nth-child(1)>circle,
+.nv-legendWrap>.nv-legend>g>g.nv-series:nth-child(2)>circle,
+.nv-legendWrap>.nv-legend>g>g.nv-series:nth-child(3)>circle,
+.nv-legendWrap>.nv-legend>g>g.nv-series:nth-child(4)>circle
+{
+    stroke-opacity: 1;
+    fill-opacity: 0.75;
+    fill: #FFEB3B !important;
+    stroke: #FFC107 !important;
+}*/
+
+/*g.nv-group.nv-series-4>rect, 
+g.nv-group.nv-series-5 > rect,
+g.nv-group.nv-series-4 > g, 
+g.nv-group.nv-series-5 > g,
+.nv-legendWrap>.nv-legend>g>g.nv-series:nth-child(5)>circle,
+.nv-legendWrap>.nv-legend>g>g.nv-series:nth-child(6)>circle
+{
+    stroke-opacity: 1;
+    fill-opacity: 0.75;
+    fill: #4CAF50 !important;
+    stroke: #4CAF50 !important;
+}*/
+
+/*g.nv-group.nv-series-6 > rect, 
+g.nv-group.nv-series-7 > rect,  
+g.nv-group.nv-series-8 > rect,  
+g.nv-group.nv-series-9 > rect,
+g.nv-group.nv-series-6 > g, 
+g.nv-group.nv-series-7 > g,  
+g.nv-group.nv-series-8 > g,  
+g.nv-group.nv-series-9 > g,
+.nv-legendWrap>.nv-legend>g>g.nv-series:nth-child(7)>circle,
+.nv-legendWrap>.nv-legend>g>g.nv-series:nth-child(8)>circle,
+.nv-legendWrap>.nv-legend>g>g.nv-series:nth-child(9)>circle,
+.nv-legendWrap>.nv-legend>g>g.nv-series:nth-child(10)>circle
+{
+    stroke-opacity: 1;
+    fill-opacity: 0.75;
+    fill: #FF5722 !important;
+    stroke: #FF5722 !important;
+}*/
+
+.nv-legendWrap>.nv-legend>g>g.nv-series.disabled>circle{
+    fill: transparent !important;
+    stroke: #ddd !important;
+}
+
+/*Thicker bar in summary*/
+rect.discreteBar {
+    width: 50px;
+}
+
+
+figure {
+    background: rgb(238, 238, 238);
+}
+
+.white > figure {
+    background: #fff;
+}
+
+.gridListdemoBasicUsage md-grid-list {
+    margin: 8px;
+}
+
+.gridListdemoBasicUsage .gray {
+    background: #f5f5f5;
+}
+
+.gridListdemoBasicUsage .green {
+    background: #b9f6ca;
+}
+
+.gridListdemoBasicUsage .yellow {
+    background: #ffff8d;
+}
+
+.gridListdemoBasicUsage .blue {
+    background: #84ffff;
+}
+
+.gridListdemoBasicUsage .purple {
+    background: #b388ff;
+}
+
+.gridListdemoBasicUsage .red {
+    background: #ff8a80;
+}
+
+.gridListdemoBasicUsage md-grid-tile {
+    transition: all 400ms ease-out 50ms;
+}
+
+h3 {
+    color: #000 !important;
+}
+
+.md-table-pagination{
+    padding: 0 80px;
+}
+
+.sub-detail{
+    margin-top: 0;
+    font-size: .8em;
+}
+
+
+
+/*
+  We're using CSS transitions for when
+  the enter and move events are triggered
+  for the element that has the .repeated-item
+  class
+*/
+.repeated-item.ng-enter, .repeated-item.ng-move {
+  -webkit-transition:0.5s linear all;
+  -moz-transition:0.5s linear all;
+  -o-transition:0.5s linear all;
+  transition:0.5s linear all;
+  opacity:0;
+}
+
+/*
+ The ng-enter-active and ng-move-active
+ are where the transition destination properties
+ are set so that the animation knows what to
+ animate.
+*/
+.repeated-item.ng-enter.ng-enter-active,
+.repeated-item.ng-move.ng-move-active {
+  opacity:1;
+}
+
+/*
+  We're using CSS keyframe animations for when
+  the leave event is triggered for the element
+  that has the .repeated-item class
+*/
+.repeated-item.ng-leave {
+  -webkit-animation:0.5s my_animation;
+  -moz-animation:0.5s my_animation;
+  -o-animation:0.5s my_animation;
+  animation:0.5s my_animation;
+}
+
+@keyframes my_animation {
+  from { opacity:1; }
+  to { opacity:0; }
+}
+
+/*
+  Unfortunately each browser vendor requires
+  its own definition of keyframe animation code...
+*/
+@-webkit-keyframes my_animation {
+  from { opacity:1; }
+  to { opacity:0; }
+}
+
+@-moz-keyframes my_animation {
+  from { opacity:1; }
+  to { opacity:0; }
+}
+
+@-o-keyframes my_animation {
+  from { opacity:1; }
+  to { opacity:0; }
+}
+
+
+.loading {
+    padding: 50px;
+    margin-top: 15em;
+}
+
+.tile-loading {
+    position: relative;
+    top: 60px;
+    font-weight: 100;
+}
+
+select.form-control {
+    width: auto;
+    height: 30px;
+    padding: 3px 5px;
+    background-color: #fff;
+    border: 1px solid rgba(216, 216, 216, 0.66);
+    border-radius: 1px;
+    -webkit-box-shadow: 0 4px 25px rgba(142, 142, 142, 0.15);
+    box-shadow: 0 4px 25px rgba(142, 142, 142, 0.15);
+    -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+table.md-table td.md-cell, table.md-table th.md-column {
+    vertical-align: middle;
+    text-align: left;
+    min-width: 130px;
+}
+
+
+/*spinner start*/
+
+.load{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);
+  /*change these sizes to fit into your project*/
+  width:50px;
+  height:50px;
+}
+.load hr{border:0;margin:0;width:40%;height:40%;position:absolute;border-radius:50%;animation:spin 2s ease infinite}
+
+.load :first-child{background:#19A68C;animation-delay:-1.5s}
+.load :nth-child(2){background:#F63D3A;animation-delay:-1s}
+.load :nth-child(3){background:#FDA543;animation-delay:-0.5s}
+.load :last-child{background:#d7f300}
+
+@keyframes spin{
+  0%,100%{transform:translate(0)}
+  25%{transform:translate(160%)}
+  50%{transform:translate(160%, 160%)}
+  75%{transform:translate(0, 160%)}
+}
+/*spinner end*/
+
+
+/* Hide when Angular is not yet loaded and initialized */
+
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+    display: none !important;
+}

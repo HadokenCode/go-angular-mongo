@@ -1,0 +1,54 @@
+﻿<md-dialog aria-label="Chain Details" ng-cloak>
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Chain Details</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()" aria-label="Close">
+                    <md-icon md-svg-src="public/svg/dripicons/cross.svg" class="md-icon-sm"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <table data-md-table ng-show="modalStatus=='Edit'">
+                    <thead md-head data-md-order="query.order">
+                        <tr md-row>
+                            <th md-column data-md-numeric md:order:by="chainCode"><span>Chain Code</span></th>
+                            <th md-column data-md-order-by="chainName"><span>Current Chain Name</span></th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row data-ng-repeat="d in chainDetailsList | orderBy: query.order">
+                            <td md-cell>{{d.chainCode}}</td>
+                            <td md-cell>{{d.chainName}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <md-input-container flex ng-show="modalStatus=='New'" style="width: 100%;">
+                    <label>New Chain Code</label>
+                    <input ng-model="NewChainCode" placeholder="e.g. 70000" />
+                    <md-tooltip md-direction="bottom">
+                        If you typed an existing Chain Code, the system will overwrite the information you have given to that Chain Code.
+                    </md-tooltip>
+                </md-input-container>
+                <md-input-container flex style="width: 100%;">
+			        <label>New Chain Name</label>
+			        <input ng-model="NewChainName" placeholder="e.g. Puregold, Robinson"/>
+			    </md-input-container>
+                <!-- <pre>{{NewChainCode|json}}</pre> -->
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button class="md-warn md-raised" ng-click="deleteChain()" aria-label="Delete" ng-show="modalStatus=='Edit'">
+                Delete
+            </md-button>
+            <md-button ng-click="cancel()" aria-label="Close">
+                Close
+            </md-button>
+            <md-button class="md-primary md-raised" ng-click="updateChain()" aria-label="Save Changes">
+                Save Changes
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

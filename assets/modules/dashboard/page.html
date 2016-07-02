@@ -1,0 +1,330 @@
+<div ng-cloak>
+    <md-content>
+
+        <md-content layout-padding ng-if="!loadingResources">
+            <div layout-gt-xs="row">
+                <md-input-container class="md-block" flex-gt-xs>
+                    <label>Report Data</label>
+                    <md-select ng-model="payload.reportData">
+                        <md-option ng-repeat="rdt in reportDataTypes" value="{{rdt.value}}">
+                            {{rdt.name}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs>
+                    <label>Delivery Dates</label>
+                    <md-select ng-model="payload.weekToDate">
+                        <md-option ng-repeat="wtd in weekToDates" value="{{wtd}}">
+                            {{wtd.dateFrom | date: 'MM/dd/yyyy'}} - {{wtd.dateTo | date: 'MM/dd/yyyy'}} (Week No: {{wtd.weekNo}})
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs>
+                    <label>Warehouse</label>
+                    <md-select ng-model="payload.warehouse">
+                        <md-option ng-repeat="w in warehouses" value="{{w.sLocName}}">
+                            {{w.sLocName}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs>
+                    <label>Area</label>
+                    <md-select ng-model="payload.area">
+                        <md-option ng-repeat="area in areas" value="{{area.areaName}}">
+                            {{area.areaName}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-xs>
+                    <label>Chain</label>
+                    <md-select ng-model="payload.chain">
+                        <!-- <md-input-container>
+                            <label>Find Chain</label>
+                                <input ng-model="searchChain" />
+                        </md-input-container> -->
+                        <md-option ng-repeat="chain in chains|filter:searchChain" value="{{chain.chainCode}}">
+                            {{chain.chainName}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                
+                
+                <section>
+                    <md-button class="md-primary md-raised" style="margin-top: 13px;" ng-click="filter(payload)">Submit</md-button>
+                </section>
+            </div>
+        </md-content>
+        
+        <div ng-include="'public/html/menu/view/loading.html'"></div>
+        <md-content layout="row" layout-align="center center" ng-if="loading" class="loading">
+            Loading {{loadingResources ? 'Resources...' : 'data...' }}
+        </md-content>
+
+        <md-table-container ng-if="!loading">
+            <md-button class="md-icon-button" ng-click="showExportTableChart()">
+                <md-icon md-svg-src="public/svg/dripicons/export.svg" class="s24" aria-label="Show Export"></md-icon>
+                <md-tooltip md-direction="bottom">
+                    Export Table Chart to Excel
+                </md-tooltip>
+            </md-button>
+            <p style="margin-left: 20px;">Cover Date: {{fday}} to {{lday}}
+                                    <br><small>Total Counts: {{totalCounts}}</small></p>
+            <table data-md-table>
+                <thead md-head data-md-order="query.order" md-on-reorder="onReorder">
+                    <tr md-row>
+                        <th md-column md:order:by="groupName"><span>Status</span></th>
+                        <th md-column md:order:by="monday"><span>Monday</span></th>
+                        <th md-column md:order:by="tuesday"><span>Tuesday</span></th>
+                        <th md-column md:order:by="wednesday"><span>Wednesday</span></th>
+                        <th md-column md:order:by="thursday"><span>Thursday</span></th>
+                        <th md-column md:order:by="friday"><span>Friday</span></th>
+                        <th md-column md:order:by="saturday"><span>Saturday</span></th>
+                        <th md-column md:order:by="sunday"><span>Sunday</span></th>
+                        <!-- <th><span>Total</span></th> -->
+                    </tr>
+                </thead>
+                <tbody md-body>
+                    <tr md-row data-ng-repeat="d in tableData | filter: tableSearch | orderBy: query.order">
+                        <td md-cell><strong>{{ d.groupName }}</strong></td>
+                        <td md-cell>{{ d.Percentmonday==''||d.Percentmonday==null? "0%" : (d.Percentmonday | number: 2) + "%" }}</td>
+                        <td md-cell>{{ d.Percenttuesday==''||d.Percenttuesday==null? "0%" : (d.Percenttuesday | number: 2) + "%" }}</td>
+                        <td md-cell>{{ d.Percentwednesday==''||d.Percentwednesday==null? "0%" : (d.Percentwednesday | number: 2) + "%" }}</td>
+                        <td md-cell>{{ d.Percentthursday==''||d.Percentthursday==null? "0%" : (d.Percentthursday | number: 2) + "%" }}</td>
+                        <td md-cell>{{ d.Percentfriday==''||d.Percentfriday==null? "0%" : (d.Percentfriday | number: 2) + "%" }}</td>
+                        <td md-cell>{{ d.Percentsaturday==''||d.Percentsaturday==null? "0%" : (d.Percentsaturday | number: 2) + "%" }}</td>
+                        <td md-cell>{{ d.Percentsunday==''||d.Percentsunday==null? "0%" : (d.Percentsunday | number: 2) + "%" }}</td>
+                        <!-- <td md-cell>{{ d.total==''||d.total==null? "0%" : (d.total | number: 2) + "%" }}</td> -->
+                    </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+        <!-- <pre>{{tableData|json}}</pre> -->
+        
+        <md-tabs md-dynamic-height md-border-bottom ng-if="!loading">
+            <md-tab label="Multi Bar Chart {{totalCounts}}">
+                <md-content class="md-padding">
+                    <md-button class="md-icon-button" ng-click="showExportBarChart()">
+                        <md-icon md-svg-src="public/svg/dripicons/export.svg" class="s24" aria-label="Show Export"></md-icon>
+                        <md-tooltip md-direction="bottom">
+                            Export to Excel
+                        </md-tooltip>
+                    </md-button>
+                    <!-- <md-table-container>
+                        <table data-md-table>
+                            <thead md-head>
+                            <tr md-row>
+                                <th md-column md:order:by="truckAllocationNo"><span>Truck Allocation No</span></th>
+                            </tr>
+                            </thead>
+                            <tbody md-body>
+                                <tr md-row data-ng-repeat="d in multipleBarChartData | filter: filter.search">
+                                    <td md-cell>{{d.}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </md-table-container>
+                    <pre>{{multipleBarChartData|json}}</pre> -->
+                    <p style="margin-left: 20px;">Cover Date: {{fday}} to {{lday}}
+                                    <br><small>Total Counts: {{totalCounts}}</small></p>
+                    <nvd3 options="options" data="multipleBarChartData"></nvd3>
+                </md-content>
+            </md-tab>
+            <md-tab label="Pie Chart">
+                <md-content class="md-padding">
+                    <section layout="row" layout-sm="column" layout-xs="column" ng-show="!pieData.length">
+                        <h1>Loading Data...</h1>
+                    </section>
+                    <section layout="row" layout-sm="column" layout-xs="column" ng-show="pieData.length">
+                        <div flex="10">
+                            <div layout="column" class="center-medium">
+                                <md-button class="md-icon-button" ng-click="showExportConfirm()">
+                                    <md-icon md-svg-src="public/svg/dripicons/export.svg" class="s24" aria-label="Show Export"></md-icon>
+                                    <md-tooltip md-direction="bottom">
+                                        Export to Excel
+                                    </md-tooltip>
+                                </md-button>
+                                <p style="margin-left: 20px;">Cover Date: {{fday}} to {{lday}}
+                                    <br><small>Total Counts: {{totalCounts}}</small></p>
+                                <md-card ng-repeat="p in pieData">
+                                    <md-card-header>
+                                        <md-card-avatar>
+                                            <md-icon class="md-avatar-icon pie-chart-icon" md-svg-icon="public/svg/dripicons/graph-pie.svg" style="background: {{p.color}};"></md-icon>
+                                        </md-card-avatar>
+                                        <md-card-header-text>
+                                            <span class="md-title">{{p.key}}</span>
+                                            <span class="md-subhead">Count: {{p.y}}</span>
+                                        </md-card-header-text>
+                                    </md-card-header>
+                                </md-card>
+                            </div>
+                        </div>
+                        <div flex>
+                            <md-content layout="column" class="right-content">
+                                <nvd3-pie-chart data="pieData" id="pieChart" height="700" x="xFunction()" y="yFunction()" showLabels="true" pieLabelsOutside="true" showValues="true" tooltips="true" interactive="true" labelType="percent">
+                                    <svg></svg>
+                                </nvd3-pie-chart>
+                            </md-content>
+                        </div>
+                        <!--  margin="{left:0,top:0,bottom:0,right:0}" -->
+                    </section>
+                </md-content>
+            </md-tab>
+            <md-tab label="Bar Chart Summary">
+                <md-content class="md-padding">
+                    <md-button class="md-icon-button" ng-click="showExportBarChart()">
+                        <md-icon md-svg-src="public/svg/dripicons/export.svg" class="s24" aria-label="Show Export"></md-icon>
+                        <md-tooltip md-direction="bottom">
+                            Export to Excel
+                        </md-tooltip>
+                    </md-button>
+                    <!-- <p style="margin-left: 20px;">Cover Date: {{fday}} to {{lday}}
+                        <br><small>Total Counts: {{totalCounts}}</small></p> -->
+                    <!-- <nvd3-discrete-bar-chart data="barChartData" id="barChart" width="800" height="400" tooltips="true" showXAxis="true" showYAxis="true">
+                        <svg></svg>
+                    </nvd3-discrete-bar-chart> -->
+                    <nvd3 options="options2" data="multipleBarChartData"></nvd3>
+                </md-content>
+            </md-tab>
+        </md-tabs>
+    </md-content>
+</div>
+<style>
+body{
+    padding-bottom: 80px;
+}
+.tabsdemoDynamicHeight md-content {
+    background-color: transparent !important;
+}
+
+.tabsdemoDynamicHeight md-content md-tabs {
+    background: #f6f6f6;
+    border: 1px solid #e1e1e1;
+}
+
+.tabsdemoDynamicHeight md-content md-tabs md-tabs-wrapper {
+    background: white;
+}
+
+.tabsdemoDynamicHeight md-content h1:first-child {
+    margin-top: 0;
+}
+
+#exampleId {
+    display: block;
+}
+
+md-card md-card-header {
+    padding: 3px;
+}
+
+md-card {
+    margin: 1px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 1px 0 rgba(0, 0, 0, 0), 0 2px 1px -1px rgba(0, 0, 0, 0);
+}
+
+md-icon {
+    margin: auto;
+}
+
+.pie-chart-icon{
+    height: 13px;
+    width: 13px;    
+}
+
+md-card md-card-header md-card-avatar md-icon {
+    padding: 6px;
+}
+
+md-card md-card-header md-card-avatar+md-card-header-text {
+    padding-top: 2px;
+    position: relative;
+    display: block;
+}
+
+md-card md-card-header md-card-avatar {
+    width: 25px;
+    height: 15px;
+}
+
+nvd3-pie-chart#pieChart > svg {
+    position: relative;
+    display: block;
+    top: -70px;
+}
+
+table.md-table tbody.md-body>tr.md-row, table.md-table tfoot.md-foot>tr.md-row {
+    height: 30px;
+}
+
+g.nv-axisMaxMin, g.tick {
+    /*transform: translate(20px,0px);*/
+}
+g.nvd3.nv-wrap.nv-axis{
+    transform: translate(0px,0px);
+}
+g.nvd3.nv-wrap.nv-multibar{
+    transform: translate(0px,0px);
+}
+
+text.nv-axislabel {
+    display: none;
+}
+
+
+g.nv-pie>.nv-slice:nth-child(1), 
+g.nv-pie>.nv-slice:nth-child(2), 
+g.nv-pie>.nv-slice:nth-child(5), 
+g.nv-pie>.nv-slice:nth-child(6) {
+    fill: #FFD740;
+}
+g.nv-pie>.nv-slice:nth-child(3), 
+g.nv-pie>.nv-slice:nth-child(4) {
+    fill: #2CA02C;
+}
+g.nv-pie>.nv-slice:nth-child(7), 
+g.nv-pie>.nv-slice:nth-child(8), 
+g.nv-pie>.nv-slice:nth-child(9), 
+g.nv-pie>.nv-slice:nth-child(10) {
+    fill: #FF5722;
+}
+
+@media (max-width: 320px){
+    md-option .md-text,.md-text {
+        font-size: .7em;
+    }
+    g.tick>text {
+        display: none;
+    }
+    g.nvd3.nv-wrap.nv-axis{
+        transform: translate(0px,30px);
+    }
+    g.nvd3.nv-wrap.nv-multibar{
+        transform: translate(0px,30px);
+    }
+    g.nv-multiBarWithLegend{
+        transform: translate(110px,210px);
+    }
+    g.nv-legendWrap {
+        transform: translate(-10px,-198px);
+    }
+    g.nv-controlsWrap {
+        /*display: none;*/
+        transform: translate(-100px, -217px);
+    }
+    .nvd3.nv-legend>g>g{
+        /*transform: translate(-100px, 5px);*/
+    
+    md-select-value#select_value_label_1 {
+        font-size: 0.7em;
+    }
+}
+
+button.md-button.md-raised {
+    line-height: 2.5em !important;
+    min-height: 1.5em;
+    padding: 0 5px;
+    min-width: 80px !important;
+}
+</style>
+
+

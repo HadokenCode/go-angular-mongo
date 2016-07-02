@@ -1,0 +1,65 @@
+<md-dialog aria-label="PO Details" ng-cloak>
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>PO Details</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()" aria-label="Close">
+                    <md-icon md-svg-src="public/svg/dripicons/cross.svg" class="md-icon-sm"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <table data-md-table>
+                    <thead md-head data-md-order="query.order">
+                        <tr md-row>
+                            <th md-column md:order:by="sku"><span>SKU</span></th>
+                            <th md-column data-md-numeric data-md-order-by="referenceSOItemNo" data-md-desc><span>ReferenceSOItemNo</span></th>
+                            <th md-column md:order:by="productDescription"><span>ProductDescription</span></th>
+                            <th md-column data-md-numeric data-md-order-by="lineItemNo"><span>LineItemNo</span></th>
+                            <th md-column md:order:by="uom"><span>UOM</span></th>
+                            <th md-column data-md-numeric data-md-order-by="qty"><span>Qty</span></th>
+                            <th md-column md:order:by="uomQtyServed"><span>UOMQtyServed</span></th>
+                            <th md-column data-md-numeric data-md-order-by="qtyAllocated"><span>QtyAllocated</span></th>
+                            <th md-column data-md-numeric data-md-order-by="qtyServed"><span>QtyServed</span></th>
+                            <th md-column data-md-numeric data-md-order-by="weight"><span>Weight</span></th>
+                            <th md-column data-md-numeric data-md-order-by="cbm"><span>CBM</span></th>
+                            <th md-column data-md-numeric data-md-order-by="barcode"><span>Barcode</span></th>
+                            <th md-column data-md-numeric data-md-order-by="invoiceAmount"><span>InvoiceAmount</span></th>
+                            <th md-column data-md-numeric data-md-order-by="invoiceCurrency"><span>InvoiceCurrency</span></th>
+                            <th md-column data-md-numeric data-md-order-by="vat"><span>Vat</span></th>
+                            <th md-column data-md-numeric data-md-order-by="amountDue"><span>AmountDue</span></th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row data-ng-repeat="d in poDetails | orderBy: query.order">
+                            <td md-cell>{{d.sku}}</td>
+                            <td md-cell>{{d.referenceSOItemNo}}</td>
+                            <td md-cell>{{d.productDescription}}</td>
+                            <td md-cell>{{d.lineItemNo}}</td>
+                            <td md-cell>{{d.uom}}</td>
+                            <td md-cell>{{d.qty}}</td>
+                            <td md-cell>{{d.uomQtyServed}}</td>
+                            <td md-cell>{{d.qtyAllocated}}</td>
+                            <td md-cell>{{d.qtyServed}}</td>
+                            <td md-cell>{{d.weight}}</td>
+                            <td md-cell>{{d.cbm}}</td>
+                            <td md-cell>{{d.barcode}}</td>
+                            <td md-cell>{{d.invoiceAmount}}</td>
+                            <td md-cell>{{d.invoiceCurrency}}</td>
+                            <td md-cell>{{d.vat}}</td>
+                            <td md-cell>{{d.amountDue}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- <pre>{{poDetails|json}}</pre> -->
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()" aria-label="Close">
+                Close
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

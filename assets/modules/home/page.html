@@ -1,0 +1,43 @@
+﻿<section layout="column" style="padding: 50px;">
+    <md-grid-list md-cols-xs="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="6" md-row-height-gt-md="1:1" md-row-height="2:2" md-gutter="20px" md-gutter-gt-sm="30px"  >
+        <md-grid-tile class="md-whiteframe-3dp repeated-item" ng-repeat="h in homeList" ng-click="goToPage(h.url)" style="background-image: url('assets/img/module-icon/{{$index+1}}.jpg');" ng-if="hasAccess(h.url)"><!--  -->
+            <div layout="column" layout-align="center center">
+                <!-- <img src="public/img/avatar/profile-circle.png" alt="Display Image"> -->
+                <i class="material-icons md-48">{{h.icon}}</i>
+                <p>{{ h.name }}</p>
+            </div>
+            <!-- <md-grid-tile-footer>
+                <h3><md-button class="md-default" aria-label="Lead me to {{ h.name }} page">{{ h.name }}</md-button></h3>
+            </md-grid-tile-footer> -->
+            <!-- <img src="public/img/module-icon/{{$index+1}}.jpg" alt="" style="width: auto;height: 200px;"> -->
+            <md-tooltip md-direction="bottom">
+                Go to {{ h.name }}
+            </md-tooltip>
+        </md-grid-tile>
+    </md-grid-list>
+</section>
+<style>
+md-grid-tile {
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-size: 100%, 100%;
+}
+figure {
+    background: transparent;
+    color: #fff;
+}
+md-grid-tile:hover {
+     -webkit-filter: grayscale(100%);  Chrome, Safari, Opera 
+    filter: grayscale(100%);
+
+    transition: all .2s; 
+    -ms-transform: scale(1.05); /* IE 9 */
+    -webkit-transform: scale(1.05); /* Safari */
+    transform: scale(1.05);
+    /*-webkit-filter: blur(1px);
+    filter: blur(1px);*/
+}
+/* .material-icons:hover{
+    filter: blur(0px);
+} */
+</style>

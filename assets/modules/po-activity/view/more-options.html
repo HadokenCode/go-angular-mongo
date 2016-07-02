@@ -1,0 +1,104 @@
+<md-dialog aria-label="Advanced Search" ng-cloak>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Advanced Search</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()" aria-label="Close">
+                <md-icon md-svg-src="public/svg/dripicons/cross.svg" class="md-icon-sm"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <div layout="column">
+                <md-card ng-repeat="item in items">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <!-- <span class="md-headline">Card with image</span>
+                        <span class="md-subhead">Small</span> -->
+                            <p><select id="filtered_by" class="form-control mt" ng-model="item.condition" ng-options="item.text as item.value for item in condition" ng-change="changedCondition(item)" ng-hide="item.type=='Date' || $index==0"></select>
+                            <select id="filtered_by" class="form-control mt" ng-model="item.condition" ng-options="item.text as item.value for item in conditionIfDate" ng-change="changedCondition(item)" ng-if="item.type=='Date'" ng-hide="$index==0"></select></p>
+                            <div>
+                                <select id="filtered_by" class="form-control" ng-model="item.field" ng-options="item.text as item.value for item in fields" ng-change="changedField(item)"></select>
+                            </div>
+                            <div>
+                                <md-input-container>
+                                    <!-- <label>Keyword</label> -->
+                                    <input type="text" ng-model="item.keyword" placeholder="Keyword..." ng-hide="item.type=='Date'">
+                                </md-input-container>
+                            </div>
+                            <md-datepicker ng-model="item.dateFrom" ng-if="item.type=='Date'" placeholder="Date From"></md-datepicker>
+                            <md-datepicker ng-model="item.dateTo" ng-if="item.type=='Date'" placeholder="Date To"></md-datepicker>
+                        </md-card-title-text>
+                        <!-- <md-card-title-media>
+                        <div class="md-media-sm card-media"></div>
+
+                      </md-card-title-media> -->
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-raised" ng-click="remove($index)" title="Delete" ng-hide="$index==0">Remove</md-button>
+                        <!-- <md-button>Action 2</md-button> -->
+                    </md-card-actions>
+                </md-card>
+                <!--<table data-md-table class="table" ng-if="items">
+                    <thead md-head>
+                        <tr md-row>
+                            <td md-column></td>
+                            <td md-column>Condition</td>
+                            <td md-column>Field</td>
+                            <td md-column>Keyword</td>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row ng-repeat="item in items">
+                            <td md-cell>
+                                <md-button class="md-raised" ng-click="remove($index)" title="Delete" ng-hide="$index==0">Remove</md-button>
+                            </td>
+                            <td md-cell>
+                                <select id="filtered_by" class="form-control mt" ng-model="item.condition" ng-options="item.text as item.value for item in condition" ng-change="changedCondition(item)" ng-hide="item.type=='Date' || $index==0"></select>
+                                <select id="filtered_by" class="form-control mt" ng-model="item.condition" ng-options="item.text as item.value for item in conditionIfDate" ng-change="changedCondition(item)" ng-if="item.type=='Date'" ng-hide="$index==0"></select>
+                            </td>
+                            <td md-cell>
+                                <div>
+                                    <select id="filtered_by" class="form-control" ng-model="item.field" ng-options="item.text as item.value for item in fields" ng-change="changedField(item)"></select>
+                                </div>
+                            </td>
+                            <td md-cell>
+                                <div>
+                                    <md-input-container>
+                                        <label>Keyword</label>
+                                        <input type="text" ng-model="item.keyword" placeholder="Keyword..." ng-hide="item.type=='Date'">
+                                    </md-input-container>
+
+
+                                </div>
+                                <md-datepicker ng-model="item.dateFrom" ng-if="item.type=='Date'" placeholder="Date From"></md-datepicker>
+                                <md-datepicker ng-model="item.dateTo" ng-if="item.type=='Date'" placeholder="Date To"></md-datepicker>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table> -->
+            </div>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button class="md-default" ng-click="add()" aria-label="Add Clause">Add Clause</md-button>
+        <md-button class="md-default" ng-click="resetQuery()" aria-label="Reset">Reset</md-button>
+        <md-button class="md-raised md-primary" ng-disabled="loading" ng-click="loadStuff()" aria-label="Search">
+            <span ng-if="!loading">Search</span>
+            <span ng-if="loading">Generating Data...</span>
+        </md-button>
+        <md-button ng-click="cancel()" aria-label="Close">
+            Close
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>
+<style>
+md-datepicker.md-default-theme,
+md-datepicker {
+    background: transparent;
+}
+.mt{
+    width: 73px;
+}
+</style>
