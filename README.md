@@ -12,11 +12,12 @@ This CMS built with the following technologies:
 ## Local Setup
 
 Pre-requisite:
-* [GoLang](https://golang.org/)
-* [Nodejs](https://nodejs.org/)
-* [MongoDB](https://www.mongodb.com/)
 
-1. Go to iTerm or ConEmu, `cd` to the repository directory and run the following command:
++ [GoLang](https://golang.org/)
++ [MongoDB](https://www.mongodb.com/)
++ [Nodejs](https://nodejs.org/)
+ 
+Go to iTerm or ConEmu, `cd` to the repository directory and run the following command:
 
 ```
 $ cd gonenjo-cms
