@@ -1,9 +1,10 @@
-# GoNenjo CMS (Work-In-Progress)
-GoLang + AngularJs 2.0 + MongoDB Stack CMS
+# GoGAM (Work-In-Progress)
+GoLang + GoGin + AngularJs + MongoDB Stack
 
-Content Management System built with the following technologies:
+Web Application stack built with the following technologies:
 
 * GoLang for developing the backend
+* GoGin for API framework
 * AngularJS for developing the frontend
 * MongoDB for the Database (NoSQL)
 
@@ -20,7 +21,7 @@ Pre-requisite:
 
 ## <a name="building"></a> Building
 
-Developers can easily build GoNenjo CMS using NPM and gulp.
+Developers can easily build GoGAM using NPM and gulp.
 
 * [Builds - Under the Hood](docs/guides/BUILD.md)
 
@@ -40,23 +41,23 @@ Then run the **gulp** tasks:
 # To build minified version
 gulp build
 
-# To build the GoNenjo docs in `/dist/docs` directory
+# To build the GoGAM docs in `/dist/docs` directory
 gulp docs
 ```
 
 For more details on how the build process works and additional commands (available for testing and
 debugging) developers should read the [Build Instructions](docs/guides/BUILD.md).
 
-## <a name="installing"></a> Installing Build (GoNenjo Files)
+## <a name="installing"></a> Installing Build (GoGAM Files)
 
 Installation process description and article here...
 
 
 ## To Dos
-* Angular 2.0 & Typescript Setup
+* Angular setup
 * Gulp setup with minify & uglify
 * MongoDB with mgo (mango)
-* Gorilla Mux Routing
+* GoGin Routing
 * AuhtO Authentication with Gmail & Facebook
 * Google Analytics
 * RESTful API
