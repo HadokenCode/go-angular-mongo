@@ -7,26 +7,43 @@ var gulp = require("gulp"),
     merge = require("merge-stream"),
     clean = require("gulp-clean"),
     path = require("path"),
-    minifyCss = require("gulp-minify-css");
+    minifyCss = require("gulp-minify-css"),
+    gulpgo = require("gulp-go");
     //less = require("gulp-less")
 
 gulp.task("watch", function() {
-    gulp.watch(["assets/index.html"], function() {
-        gulp.start("index");
+    // gulp.watch("./main.go").on("change", function(){
+    //     console.log("changed");
+    //     go.restart();
+    // });
+    gulp.watch("./main.go", function(){
+        console.log("changed");
+        go.restart();
     });
-    gulp.watch(["assets/modules/**/**/*.html"], function() {
-        gulp.start("modules");
-    });
-    gulp.watch("assets/js/**/*.js", function() {
-        gulp.start("js-vendors");
-    });
-    gulp.watch(["assets/modules/**/*.js"], function() {
-        gulp.start("js-modules");
-    });
-    gulp.watch("assets/css/*.css", function() {
-        gulp.start("css");
-        gulp.start("css-login");
-    });
+        
+        //gulp.start("index");
+        //go.restart();
+      // gulp.watch(["./"+"/**/*.go", "main.go"]).on("change", function() {
+  //   //go.restart();
+  //   gulp.start("go-run");
+  // });
+  // 
+    // gulp.watch(["assets/index.html"], function() {
+    //     gulp.start("index");
+    // });
+    // gulp.watch(["assets/modules/**/**/*.html"], function() {
+    //     gulp.start("modules");
+    // });
+    // gulp.watch("assets/js/**/*.js", function() {
+    //     gulp.start("js-vendors");
+    // });
+    // gulp.watch(["assets/modules/**/*.js"], function() {
+    //     gulp.start("js-modules");
+    // });
+    // gulp.watch("assets/css/*.css", function() {
+    //     gulp.start("css");
+    //     gulp.start("css-login");
+    // });
     // gulp.watch("assets/css/less/main/*.css", function() {
     //     gulp.start("css");
     // });
@@ -155,12 +172,28 @@ gulp.task("clean", function() {
         }));
 });
 
+gulp.task("go-run", function() {
+  go = gulpgo.run("main.go", ["--arg1", "value1"], {cwd: "./", stdio: 'inherit'});
+});
+
+gulp.task("go-restart", function(){
+    go.restart();
+});
+
+gulp.task("gow", ["go-run"], function(){
+
+    gulp.watch("./main.go").on("change", function(){
+        gulp.start("go-restart");
+    });
+    
+});
+
 gulp.task("default", [
-	"index",
-	"modules",
-    "css",
-	"css-login",
-    "js-vendors",
-	"js-modules",
-    "watch"
+	// "index",
+	// "modules",
+    // "css",
+	// "css-login",
+    // "js-vendors",
+	// "js-modules",
+    // "watch"
 ]);
