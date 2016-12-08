@@ -1,10 +1,10 @@
 # GoGAM (Work-In-Progress)
-GoLang + GoGin + AngularJs + MongoDB Stack
+GoLang + Gorilla + AngularJs + MongoDB Stack
 
 Web Application stack built with the following technologies:
 
 * GoLang for developing the backend
-* GoGin for API framework
+* Gorilla for API routing
 * AngularJS for developing the frontend
 * MongoDB for the Database (NoSQL)
 
@@ -17,7 +17,7 @@ Pre-requisite:
 + [GoLang](https://golang.org/)
 + [MongoDB](https://www.mongodb.com/)
 + [Nodejs](https://nodejs.org/)
- 
++ 
 
 ## <a name="building"></a> Building
 
@@ -57,11 +57,11 @@ Installation process description and article here...
 * Angular setup
 * Gulp setup with minify & uglify
 * MongoDB with mgo (mango)
-* GoGin Routing
-* AuhtO Authentication with Gmail & Facebook
-* Google Analytics
+* Gorilla Routing
 * RESTful API
-* Admin Module with dashboard
+* OAuth Authentication with Gmail & Facebook
+* Google Analytics
+* Admin dashboard
 * Metadata
 
 
