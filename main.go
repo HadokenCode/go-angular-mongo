@@ -7,11 +7,12 @@ import (
 )
 
 func main() {
+	const PORT = ":7323"
 	r := mux.NewRouter()
 
-	// func1 := func(w http.ResponseWriter, r *http.Request) {
-	// 	w.Write([]byte("hellow there 1"))
-	// }
+	func1 := func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("hellow world"))
+	}
 
 	func2 := func(w http.ResponseWriter, r *http.Request) {
 		payload := mux.Vars(r)
@@ -19,9 +20,13 @@ func main() {
 	}
 
 	//r.PathPrefix("/api").HandlerFunc(func1)
-	r.HandleFunc("/user/{id}", func2)
+	r.HandleFunc("/", func1)
+
+	sr := r.PathPrefix("/").Subrouter()
+	sr.HandleFunc("/api/{id:[0-9]+}", func2)
+	//r.HandleFunc("/user/{id:[0-9]+}", func2)
 	http.Handle("/", r)
-	go http.ListenAndServe(":7323", nil)
-	fmt.Println("listening to port:7323....")
+	go http.ListenAndServe(PORT, nil)
+	fmt.Println("listening to port" + PORT + "....")
 	fmt.Scanln()
 }
