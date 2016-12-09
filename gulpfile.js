@@ -12,9 +12,12 @@ var gulp = require("gulp"),
     util = require("gulp-util"),
     notifier = require("node-notifier"),
     sync = require("gulp-sync")(gulp).sync,
-    //livereload = require("gulp-livereload"),
     child = require("child_process"),
     os = require("os");
+    
+//livereload = require("gulp-livereload"),
+//browserSync = require('browser-sync').create()
+
 //less = require("gulp-less")
 
 var server = null;
@@ -184,8 +187,10 @@ gulp.task("gow", ["go-run"], function() {
 
 // Compile application
 gulp.task('server:build', function() {
+
     // Build application in the "gobin" folder
     var build = child.spawnSync('go', ['install']);
+
     // Something wrong
     if (build.stderr.length) {
         util.log(util.colors.red('Something wrong with this version :'));
@@ -229,7 +234,6 @@ gulp.task('server:spawn', function() {
         var env = process.env;
         //console.log(env.GOBIN + '\\' + app + '.exe');
         server = child.spawn(env.GOBIN + '\\' + app + '.exe');
-        //livereload();
         //console.log(server);
     } else {
         server = child.spawn(app);
@@ -249,9 +253,7 @@ gulp.task('server:watch', function() {
     ], sync([
         'server:build',
         'server:spawn'
-    ], 'server'), function(){
-
-    });
+    ], 'server'));
 });
 
 gulp.task('default', ['server:build', 'server:spawn', 'server:watch']);

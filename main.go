@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/gorilla/mux"
+	"github.com/gorilla/reverse"
 	"net/http"
 )
 
@@ -11,7 +12,7 @@ func main() {
 	r := mux.NewRouter()
 
 	func1 := func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("hellow world with liverreload 4"))
+		w.Write([]byte("hellow there world pow"))
 	}
 
 	func2 := func(w http.ResponseWriter, r *http.Request) {

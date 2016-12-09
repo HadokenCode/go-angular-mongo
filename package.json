@@ -7,6 +7,7 @@
     "gulp-go": "^1.1.0"
   },
   "devDependencies": {
+    "browser-sync": "^2.18.2",
     "child_process": "^1.0.2",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
