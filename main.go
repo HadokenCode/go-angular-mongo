@@ -7,11 +7,11 @@ import (
 )
 
 func main() {
-	const PORT = ":7323"
+	const PORT = ":7324"
 	r := mux.NewRouter()
 
 	func1 := func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("hellow world"))
+		w.Write([]byte("hellow world with liverreload 4"))
 	}
 
 	func2 := func(w http.ResponseWriter, r *http.Request) {
