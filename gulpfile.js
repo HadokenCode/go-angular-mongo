@@ -8,7 +8,6 @@ var gulp = require("gulp"),
     clean = require("gulp-clean"),
     path = require("path"),
     minifyCss = require("gulp-minify-css"),
-<<<<<<< HEAD
     gulpgo = require("gulp-go"),
     util = require("gulp-util"),
     notifier = require("node-notifier"),
@@ -19,12 +18,6 @@ var gulp = require("gulp"),
 //less = require("gulp-less")
 
 var server = null;
-
-=======
-    gulpgo = require("gulp-go");
-    //sample
-    //less = require("gulp-less")
->>>>>>> master
 
 gulp.task("watch", function() {
 
