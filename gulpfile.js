@@ -8,46 +8,38 @@ var gulp = require("gulp"),
     clean = require("gulp-clean"),
     path = require("path"),
     minifyCss = require("gulp-minify-css"),
-    gulpgo = require("gulp-go");
-    //sample
-    //less = require("gulp-less")
+    gulpgo = require("gulp-go"),
+    util = require("gulp-util"),
+    notifier = require("node-notifier"),
+    sync = require("gulp-sync")(gulp).sync,
+    child = require("child_process"),
+    os = require("os");
+
+//less = require("gulp-less")
+
+var server = null;
 
 gulp.task("watch", function() {
-    // gulp.watch("./main.go").on("change", function(){
-    //     console.log("changed");
-    //     go.restart();
-    // });
-    gulp.watch("./main.go", function(){
-        console.log("changed");
-        go.restart();
+
+    gulp.watch(["assets/index.html"], function() {
+        gulp.start("index");
     });
-        
-        //gulp.start("index");
-        //go.restart();
-      // gulp.watch(["./"+"/**/*.go", "main.go"]).on("change", function() {
-  //   //go.restart();
-  //   gulp.start("go-run");
-  // });
-  // 
-    // gulp.watch(["assets/index.html"], function() {
-    //     gulp.start("index");
-    // });
-    // gulp.watch(["assets/modules/**/**/*.html"], function() {
-    //     gulp.start("modules");
-    // });
-    // gulp.watch("assets/js/**/*.js", function() {
-    //     gulp.start("js-vendors");
-    // });
-    // gulp.watch(["assets/modules/**/*.js"], function() {
-    //     gulp.start("js-modules");
-    // });
-    // gulp.watch("assets/css/*.css", function() {
-    //     gulp.start("css");
-    //     gulp.start("css-login");
-    // });
-    // gulp.watch("assets/css/less/main/*.css", function() {
-    //     gulp.start("css");
-    // });
+    gulp.watch(["assets/modules/**/**/*.html"], function() {
+        gulp.start("modules");
+    });
+    gulp.watch("assets/js/**/*.js", function() {
+        gulp.start("js-vendors");
+    });
+    gulp.watch(["assets/modules/**/*.js"], function() {
+        gulp.start("js-modules");
+    });
+    gulp.watch("assets/css/*.css", function() {
+        gulp.start("css");
+        gulp.start("css-login");
+    });
+    gulp.watch("assets/css/less/main/*.css", function() {
+        gulp.start("css");
+    });
 });
 
 gulp.task("index", function() {
@@ -79,12 +71,12 @@ gulp.task("modules", function() {
 });*/
 
 gulp.task("css", function() {
-      return gulp.src([
-        "assets/css/angular-material.css",
-        "assets/css/md-data-table.css",
-        "assets/css/sweetalert.css",
-        "assets/css/nv.d3.css",
-        "assets/css/styles.css"
+    return gulp.src([
+            "assets/css/angular-material.css",
+            "assets/css/md-data-table.css",
+            "assets/css/sweetalert.css",
+            "assets/css/nv.d3.css",
+            "assets/css/styles.css"
         ])
         .pipe(minifyCss())
         .pipe(concat("styles.min.css"))
@@ -92,8 +84,8 @@ gulp.task("css", function() {
 });
 
 gulp.task("css-login", function() {
-      return gulp.src([
-        "assets/css/login.css"
+    return gulp.src([
+            "assets/css/login.css"
         ])
         .pipe(minifyCss())
         .pipe(concat("login.min.css"))
@@ -132,7 +124,7 @@ gulp.task("js-vendors", function() {
             "assets/js/vendor/vg-overlay-play.js",
             "assets/js/vendor/vg-poster.js",
             "assets/js/vendor/vg-buffering.js",
-            
+
             "assets/js/app.js",
             "assets/js/routes.js",
             "assets/js/services.js",
@@ -142,13 +134,12 @@ gulp.task("js-vendors", function() {
         callback: function(err, min) {
             if (err) {
                 console.log(err);
-            } else {
-            }
+            } else {}
         }
     });
-});  
+});
 
-gulp.task("js-modules", function() {  
+gulp.task("js-modules", function() {
     new compressor.minify({
         type: "uglifyjs",
         fileIn: "assets/modules/**/*.js",
@@ -164,8 +155,8 @@ gulp.task("js-modules", function() {
 /* delete html css js folders */
 gulp.task("clean", function() {
     return gulp.src([
-            "public/assets/modules", 
-            "public/assets/css", 
+            "public/assets/modules",
+            "public/assets/css",
             "public/assets/js"
         ])
         .pipe(clean({
@@ -173,28 +164,101 @@ gulp.task("clean", function() {
         }));
 });
 
-gulp.task("go-run", function() {
-  go = gulpgo.run("main.go", ["--arg1", "value1"], {cwd: "./", stdio: 'inherit'});
+/*gulp.task("go-run", function() {
+    go = gulpgo.run("main.go", ["--arg1", "value1"], { cwd: "./", stdio: 'inherit' });
 });
 
-gulp.task("go-restart", function(){
+gulp.task("go-restart", function() {
     go.restart();
 });
 
-gulp.task("gow", ["go-run"], function(){
+gulp.task("gow", ["go-run"], function() {
 
-    gulp.watch("./main.go").on("change", function(){
+    gulp.watch("./main.go").on("change", function() {
         gulp.start("go-restart");
     });
-    
+
+});*/
+
+// Compile application
+gulp.task('server:build', function() {
+
+    // Build application in the "gobin" folder
+    var build = child.spawnSync('go', ['install']);
+
+    // Something wrong
+    if (build.stderr.length) {
+        util.log(util.colors.red('Something wrong with this version :'));
+        var lines = build.stderr.toString()
+            .split('\n').filter(function(line) {
+                return line.length
+            });
+        for (var l in lines)
+            util.log(util.colors.red(
+                'Error (go install): ' + lines[l]
+            ));
+        notifier.notify({
+            title: 'Error (go install)',
+            message: lines
+        });
+    }
+
+    console.log("serving port:7324");
+    return build;
 });
 
-gulp.task("default", [
-	// "index",
-	// "modules",
-    // "css",
-	// "css-login",
-    // "js-vendors",
-	// "js-modules",
-    // "watch"
+// Launch server
+gulp.task('server:spawn', function() {
+    // Stop the server
+    if (server && server !== 'null') {
+        server.kill();
+    }
+    // Application name
+    if (os.platform() == 'win32') {
+        // Windows
+        var path_folder = __dirname.split('\\');
+        //console.log(path_folder);
+    } else {
+        // Linux / MacOS
+        var path_folder = __dirname.split('/');
+    }
+    var length = path_folder.length;
+    var app = path_folder[length - parseInt(1)];
+    // Run the server
+    if (os.platform() == 'win32') {
+        //console.log(process.env);
+        var env = process.env;
+        //console.log(env.GOBIN + '\\' + app + '.exe');
+        server = child.spawn(env.GOBIN + '\\' + app + '.exe');
+    } else {
+        server = child.spawn(app);
+    }
+    // Display terminal informations
+    server.stderr.on('data', function(data) {
+        process.stdout.write(data.toString());
+    });
+});
+
+// Watch files
+gulp.task('server:watch', function() {
+    //livereload.listen({ basePath: './' });
+    gulp.watch([
+        '*.go',
+        '**/*.go',
+    ], sync([
+        'server:build',
+        'server:spawn'
+    ], 'server'));
+});
+
+gulp.task('default', ['server:build', 'server:spawn', 'server:watch']);
+
+gulp.task("build", [
+    "index",
+    "modules",
+    "css",
+    "css-login",
+    "js-vendors",
+    "js-modules",
+    "watch"
 ]);
