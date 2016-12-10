@@ -19,7 +19,6 @@ var gulp = require("gulp"),
 
 var server = null;
 
-
 gulp.task("watch", function() {
 
     gulp.watch(["assets/index.html"], function() {
