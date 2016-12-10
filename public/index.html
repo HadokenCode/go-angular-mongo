@@ -1,1 +1,76 @@
-<!DOCTYPE html><html lang=en ng-app=goApp><head><title>GoNenjo CMS</title><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=description content="CMS built in GoLang + AngularJS + MongoDB"><meta name=viewport content="initial-scale=1, maximum-scale=1, user-scalable=no"><link rel=stylesheet href=assets/css/styles.min.css><link rel=icon type=image/png href=assets/img/logo.png></head><body ng-cloak ui-view layout=row layout-align="center top" flex><script src=assets/js/vendors.min.js></script><script src=assets/js/modules.min.js></script></body></html>
+<!doctype html>
+<html class="no-js" lang="en" ng-app="myapp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Hello Go Angular</title>
+    <base href="/">
+    <meta name="description" content="Golang gin-gonic mgo demo">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/public/css/app.css">
+  </head>
+  <body>
+    <!--[if lt IE 8]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" ui-sref="home">
+            GoGAM
+          </a>
+        </div>
+
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class=""><a ui-sref="home">Home</a></li>
+            <li class=""><a ui-sref="login">Other ui-route</a></li>
+            <li class=""><a href="https://nenjotsu.github.io/GoGAM/">View on github</a></li>
+          </ul>
+
+          <ul class="nav navbar-right navbar-nav">
+            <li>
+              <iframe src="https://ghbtns.com/github-btn.html?user=nenjotsu&amp;repo=GoGAM&amp;type=watch&amp;count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="45" style="padding: 15px 0 0 15px;"></iframe>
+            </li>
+            <li>
+              <iframe src="https://ghbtns.com/github-btn.html?user=nenjotsu&amp;repo=GoGAM&amp;type=fork&amp;count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="45" style="padding: 15px 0 0 15px;"></iframe>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </nav>
+
+    <div class="container">
+    	<div class="row">
+      		<section ui-view></section>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">MIT nenjotsu@gmail.com 2017</p>
+      </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="/public/js/app.js"></script>
+
+  </body>
+
+</html>

@@ -1,33 +1,59 @@
+// Package main is the CLI.
+// You can use the CLI via Terminal.
 package main
 
 import (
-	"fmt"
-	"github.com/gorilla/mux"
-	"github.com/gorilla/reverse"
 	"net/http"
+	"os"
+
+	"github.com/GoGAM/db"
+	"github.com/GoGAM/handlers/articles"
+	"github.com/GoGAM/middlewares"
+	"github.com/gin-gonic/gin"
 )
 
+const (
+	// Port at which the server starts listening
+	Port = "7324"
+)
+
+func init() {
+	db.Connect()
+}
+
 func main() {
-	const PORT = ":7324"
-	r := mux.NewRouter()
 
-	func1 := func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("hellow there world pow"))
+	// Configure
+	router := gin.New()
+
+	router.RedirectTrailingSlash = true
+	router.RedirectFixedPath = false
+
+	// Middlewares
+	router.Use(middlewares.Connect)
+	router.Use(middlewares.ErrorHandler)
+
+	// Statics
+	router.Static("/public", "./public")
+
+	// Routes
+
+	router.GET("/", func(c *gin.Context) {
+		c.Redirect(http.StatusMovedPermanently, "/public")
+	})
+
+	http.Handle("/public", router)
+
+	// Articles
+	router.GET("/api/articles", articles.List)
+	router.POST("/api/new/articles/:payload", articles.Create)
+	router.POST("/api/update/articles/:payload", articles.Update)
+	router.POST("/api/delete/articles/:payload", articles.Delete)
+
+	// Start listening
+	port := Port
+	if len(os.Getenv("PORT")) > 0 {
+		port = os.Getenv("PORT")
 	}
-
-	func2 := func(w http.ResponseWriter, r *http.Request) {
-		payload := mux.Vars(r)
-		w.Write([]byte(payload["id"]))
-	}
-
-	//r.PathPrefix("/api").HandlerFunc(func1)
-	r.HandleFunc("/", func1)
-
-	sr := r.PathPrefix("/").Subrouter()
-	sr.HandleFunc("/api/{id:[0-9]+}", func2)
-	//r.HandleFunc("/user/{id:[0-9]+}", func2)
-	http.Handle("/", r)
-	go http.ListenAndServe(PORT, nil)
-	fmt.Println("listening to port" + PORT + "....")
-	fmt.Scanln()
+	router.Run(":" + port)
 }

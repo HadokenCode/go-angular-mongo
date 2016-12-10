@@ -14,37 +14,33 @@ var gulp = require("gulp"),
     sync = require("gulp-sync")(gulp).sync,
     child = require("child_process"),
     os = require("os");
-    
-//livereload = require("gulp-livereload"),
-//browserSync = require('browser-sync').create()
 
 //less = require("gulp-less")
 
 var server = null;
-//livereload({ start: true });
 
 
 gulp.task("watch", function() {
 
-    // gulp.watch(["assets/index.html"], function() {
-    //     gulp.start("index");
-    // });
-    // gulp.watch(["assets/modules/**/**/*.html"], function() {
-    //     gulp.start("modules");
-    // });
-    // gulp.watch("assets/js/**/*.js", function() {
-    //     gulp.start("js-vendors");
-    // });
-    // gulp.watch(["assets/modules/**/*.js"], function() {
-    //     gulp.start("js-modules");
-    // });
-    // gulp.watch("assets/css/*.css", function() {
-    //     gulp.start("css");
-    //     gulp.start("css-login");
-    // });
-    // gulp.watch("assets/css/less/main/*.css", function() {
-    //     gulp.start("css");
-    // });
+    gulp.watch(["assets/index.html"], function() {
+        gulp.start("index");
+    });
+    gulp.watch(["assets/modules/**/**/*.html"], function() {
+        gulp.start("modules");
+    });
+    gulp.watch("assets/js/**/*.js", function() {
+        gulp.start("js-vendors");
+    });
+    gulp.watch(["assets/modules/**/*.js"], function() {
+        gulp.start("js-modules");
+    });
+    gulp.watch("assets/css/*.css", function() {
+        gulp.start("css");
+        gulp.start("css-login");
+    });
+    gulp.watch("assets/css/less/main/*.css", function() {
+        gulp.start("css");
+    });
 });
 
 gulp.task("index", function() {
@@ -208,6 +204,7 @@ gulp.task('server:build', function() {
         });
     }
 
+    console.log("serving port:7324");
     return build;
 });
 
@@ -234,7 +231,6 @@ gulp.task('server:spawn', function() {
         var env = process.env;
         //console.log(env.GOBIN + '\\' + app + '.exe');
         server = child.spawn(env.GOBIN + '\\' + app + '.exe');
-        //console.log(server);
     } else {
         server = child.spawn(app);
     }
@@ -258,7 +254,7 @@ gulp.task('server:watch', function() {
 
 gulp.task('default', ['server:build', 'server:spawn', 'server:watch']);
 
-/*gulp.task("default", [
+gulp.task("build", [
     "index",
     "modules",
     "css",
@@ -266,4 +262,4 @@ gulp.task('default', ['server:build', 'server:spawn', 'server:watch']);
     "js-vendors",
     "js-modules",
     "watch"
-]);*/
+]);
