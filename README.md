@@ -1,4 +1,4 @@
-# GoGAM (Work-In-Progress)
+# GoGAM (v0.0.0)
 GoLang + Gin + AngularJs + MongoDB Stack
 
 Web Application stack built with the following technologies:
