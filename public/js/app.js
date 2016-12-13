@@ -65,7 +65,7 @@
             getRepoInfo: function(){
                 var d = $q.defer();
 
-                $http.get("https://api.github.com/repos/nenjotsu/GoGAM")
+                $http.get("https://api.github.com/repos/nenjotsu/go-angular-mongo")
                     .success(d.resolve)
                     .error(d.reject);
                 return d.promise;
@@ -89,6 +89,7 @@
         vm.transaction = 0;
         factory.getRepoInfo().then(function(res){
             vm.repoInfo = res;
+            //console.log(vm.repoInfo);
         });
 
         vm.getArticles = function(){
@@ -212,8 +213,7 @@
             .state("notfound", {
                 url: "/public/err404",
                 templateUrl: "public/html/404.html"
-            })
-            ;
+            });
 
             // use the HTML5 History API
             $locationProvider.html5Mode(true);
