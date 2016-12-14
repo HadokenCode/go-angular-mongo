@@ -12,11 +12,90 @@
 
 (function() {
     "use strict";
+    angular.module("myapp").factory("loginFactory", [
+        "$http", "$q", loginFactory
+    ]);
+
+    function loginFactory($http, $q) {
+
+        return {
+            login: function(payload){
+                var d = $q.defer(),
+                    config = {
+                        headers: {
+                            'Content-Type': 'application/json; charset=utf-8',
+                            //'Autorization': 'Bearer ' + auth.vm.login()
+                        }
+                    };
+
+                $http.post("/login", payload, config)
+                    .success(d.resolve)
+                    .error(d.reject);
+                return d.promise;
+
+            }
+        }
+    }
+
+})();
+
+(function() {
+    "use strict";
+    angular.module("myapp").controller("loginController", [
+        "$scope", "$window", "loginFactory", loginController
+    ]);
+
+    function loginController($scope, $window, factory) {
+
+        /* jshint validthis: true */
+        var vm = this;
+        vm.message = "This is a sample for another angular ui-route";
+
+        vm.loginPayload = {};
+        vm.loginPayload.username = "";
+        vm.loginPayload.password = "";
+
+        vm.tokenSession = "";
+
+        vm.login = function(){
+            factory.login(vm.loginPayload).then(function(res){
+                console.log(res);
+
+                vm.tokenSession = res.token;
+                console.log(vm.tokenSession);
+                if(res.token){
+                    $window.location.href("/public/login");
+                } else {
+                    alert("Login Failed!");
+                }
+                
+                //return vm.tokenSession;
+                //vm.articleList = [].concat(res);
+            },function(error){
+                console.log(error);
+            });
+            //return vm.tokenSession;
+        };
+    }
+
+})();
+
+(function() {
+    "use strict";
     angular.module("myapp").factory("mainFactory", [
         "$http", "$q", mainFactory
     ]);
 
     function mainFactory($http, $q) {
+
+        //console.log(auth.vm.login());
+
+        var config = {
+                        headers: {
+                            'Content-Type': 'application/json; charset=utf-8',
+                            //'Autorization': 'Bearer ' + auth.vm.login()
+                        }
+                    };
 
         return {
             getArticles: function(){
@@ -139,51 +218,6 @@
     }
 
 })();
-
-(function() {
-    "use strict";
-    angular.module("myapp").factory("loginFactory", [
-        "$http", "$q", loginFactory
-    ]);
-
-    function loginFactory($http, $q) {
-
-        return {
-            getArticles: function(){
-                var d = $q.defer();
-
-                $http.get("/api/articles")
-                    .success(d.resolve)
-                    .error(d.reject);
-                return d.promise;
-
-            }
-        }
-    }
-
-})();
-
-(function() {
-    "use strict";
-    angular.module("myapp").controller("loginController", [
-        "$scope", "loginFactory", loginController
-    ]);
-
-    function loginController($scope, factory) {
-
-        /* jshint validthis: true */
-        var vm = this;
-        vm.message = "This is a sample for another angular ui-route";
-
-        factory.getArticles().then(function(res){
-        	vm.articleList = [].concat(res);
-        },function(error){
-        	console.log(error);
-        });
-    }
-
-})();
-
 
 
 (function() {

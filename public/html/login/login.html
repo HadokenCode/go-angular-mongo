@@ -1,3 +1,8 @@
 <div class="alert alert-dismissible alert-info alert-dark">
 	{{vm.message}}
 </div>
+<form ng-submit="vm.login()" class="text-center" style="max-width: 300px; margin: 0 auto;">
+	<p><input type="text" ng-model="vm.loginPayload.username" class="form-control"></p>
+	<p><input type="text" ng-model="vm.loginPayload.password" class="form-control"></p>
+	<p><button type="submit" class="btn btn-primary btn-block">Login</button></p>
+</form>
