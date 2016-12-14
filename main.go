@@ -3,6 +3,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"os"
 	"time"
@@ -11,7 +12,7 @@ import (
 	"github.com/GoGAM/handlers/articles"
 	//"github.com/GoGAM/handlers/register"
 	"github.com/GoGAM/middlewares"
-	"github.com/fvbock/endless"
+	//"github.com/fvbock/endless"
 	"github.com/gin-gonic/gin"
 	"gopkg.in/appleboy/gin-jwt.v2"
 )
@@ -29,10 +30,6 @@ func helloHandler(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"text": "Hello World.",
 	})
-
-	// c.JSON(http.StatusOK, {
-	// 	"text": "Hello World.",
-	// })
 }
 
 func main() {
@@ -61,16 +58,6 @@ func main() {
 
 	http.Handle("/public", router)
 
-	//Register & Login
-	//router.GET("/api/registernew/:payload", register.Init)
-
-	// Articles
-	router.GET("/api/articles", articles.List)
-	router.POST("/api/new/articles/:payload", articles.Create)
-	router.POST("/api/update/articles/:payload", articles.Update)
-	router.POST("/api/delete/articles/:payload", articles.Delete)
-
-	// the jwt middleware
 	authMiddleware := &jwt.GinJWTMiddleware{
 		Realm:      "admin",
 		Key:        []byte("admin"),
@@ -78,13 +65,14 @@ func main() {
 		MaxRefresh: time.Hour,
 		Authenticator: func(userId string, password string, c *gin.Context) (string, bool) {
 			if (userId == "admin" && password == "admin") || (userId == "test" && password == "test") {
+				//c.Redirect(http.StatusMovedPermanently, "/public/")
 				return userId, true
 			}
 
 			return userId, false
 		},
 		Authorizator: func(userId string, c *gin.Context) bool {
-			if userId == "admin" {
+			if userId == "admin" || userId == "test" {
 				return true
 			}
 
@@ -92,8 +80,10 @@ func main() {
 		},
 		Unauthorized: func(c *gin.Context, code int, message string) {
 			c.JSON(code, gin.H{
-				"code":    code,
-				"message": message,
+				"code":         code,
+				"errorMessage": message,
+				"success":      false,
+				"message":      "You are not allowed to access this, please contact administrator.",
 			})
 		},
 		// TokenLookup is a string in the form of "<source>:<name>" that is used
@@ -108,13 +98,24 @@ func main() {
 		// TokenLookup: "cookie:token",
 	}
 
+	//Register & Login
+	//router.GET("/api/registernew/:payload", register.Init)
+
 	router.POST("/login", authMiddleware.LoginHandler)
 
-	auth := router.Group("/auth")
+	auth := router.Group("/api")
 	auth.Use(authMiddleware.MiddlewareFunc())
 	{
+		fmt.Println(authMiddleware.Realm)
+		fmt.Println(authMiddleware.Key)
 		auth.GET("/hello", helloHandler)
 		auth.GET("/refresh_token", authMiddleware.RefreshHandler)
+
+		// Articles
+		auth.GET("/articles", articles.List)
+		auth.POST("/new/articles/:payload", articles.Create)
+		auth.POST("/update/articles/:payload", articles.Update)
+		auth.POST("/delete/articles/:payload", articles.Delete)
 	}
 
 	// Start listening
@@ -122,6 +123,6 @@ func main() {
 	if len(os.Getenv("PORT")) > 0 {
 		port = os.Getenv("PORT")
 	}
-	//router.Run(":" + port)
-	endless.ListenAndServe(":"+port, router)
+	router.Run(":" + port)
+	//endless.ListenAndServe(":"+port, router)
 }
