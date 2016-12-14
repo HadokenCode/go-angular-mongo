@@ -85,7 +85,7 @@ func main() {
 		},
 		Authorizator: func(userId string, c *gin.Context) bool {
 			if userId == "admin" {
-				return true
+				return truebranch
 			}
 
 			return false
