@@ -23,7 +23,7 @@ func Create(c *gin.Context) {
 		return
 	}
 
-	article.CreatedOn = tPime.Now().UnixNano() / int64(time.Millisecond)
+	article.CreatedOn = time.Now().UnixNano() / int64(time.Millisecond)
 	article.UpdatedOn = time.Now().UnixNano() / int64(time.Millisecond)
 
 	err = db.C(models.CollectionArticle).Insert(article)
