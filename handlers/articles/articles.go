@@ -8,8 +8,8 @@ import (
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 
-	"github.com/GoGAM/models"
 	"github.com/gin-gonic/gin"
+	"github.com/go-angular-mongo/models"
 )
 
 // Create an article

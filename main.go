@@ -1,5 +1,3 @@
-// Package main is the CLI.
-// You can use the CLI via Terminal.
 package main
 
 import (
@@ -8,10 +6,10 @@ import (
 	"os"
 	"time"
 
-	"github.com/GoGAM/db"
-	"github.com/GoGAM/handlers/articles"
-	//"github.com/GoGAM/handlers/register"
-	"github.com/GoGAM/middlewares"
+	"github.com/go-angular-mongo/db"
+	"github.com/go-angular-mongo/handlers/articles"
+	//"github.com/go-angular-mongo/handlers/login"
+	"github.com/go-angular-mongo/middlewares"
 	//"github.com/fvbock/endless"
 	"github.com/gin-gonic/gin"
 	"gopkg.in/appleboy/gin-jwt.v2"
@@ -26,12 +24,6 @@ func init() {
 	db.Connect()
 }
 
-func helloHandler(c *gin.Context) {
-	c.JSON(200, gin.H{
-		"text": "Hello World.",
-	})
-}
-
 func main() {
 
 	// Configure
@@ -40,7 +32,7 @@ func main() {
 	router.Use(gin.Logger())
 	router.Use(gin.Recovery())
 
-	router.RedirectTrailingSlash = true
+	router.RedirectTrailingSlash = false
 	router.RedirectFixedPath = false
 
 	// Middlewares
@@ -48,15 +40,15 @@ func main() {
 	router.Use(middlewares.ErrorHandler)
 
 	// Statics
-	router.Static("/public", "./public")
+	router.Static("/public/", "./public")
 
 	// Routes
 
-	router.GET("/", func(c *gin.Context) {
-		c.Redirect(http.StatusMovedPermanently, "/public")
-	})
+	// router.GET("/", func(c *gin.Context) {
+	// 	c.Redirect(http.StatusMovedPermanently, "/public/")
+	// })
 
-	http.Handle("/public", router)
+	http.Handle("/api", router)
 
 	authMiddleware := &jwt.GinJWTMiddleware{
 		Realm:      "admin",
@@ -66,6 +58,7 @@ func main() {
 		Authenticator: func(userId string, password string, c *gin.Context) (string, bool) {
 			if (userId == "admin" && password == "admin") || (userId == "test" && password == "test") {
 				//c.Redirect(http.StatusMovedPermanently, "/public/")
+				fmt.Println(c)
 				return userId, true
 			}
 
@@ -73,6 +66,8 @@ func main() {
 		},
 		Authorizator: func(userId string, c *gin.Context) bool {
 			if userId == "admin" {
+				//fmt.Println(c)
+				//c.Redirect(http.StatusMovedPermanently, "/public/main/")
 				return true
 			}
 
@@ -106,9 +101,6 @@ func main() {
 	auth := router.Group("/api")
 	auth.Use(authMiddleware.MiddlewareFunc())
 	{
-		fmt.Println(authMiddleware.Realm)
-		fmt.Println(authMiddleware.Key)
-		auth.GET("/hello", helloHandler)
 		auth.GET("/refresh_token", authMiddleware.RefreshHandler)
 
 		// Articles
