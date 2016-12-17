@@ -3,13 +3,14 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Hello Go Angular</title>
+    <title>GoGAM</title>
     <base href="/">
-    <meta name="description" content="Golang gin-gonic mgo demo">
+    <meta name="description" content="Golang gin-gonic angular mgo demo">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/public/css/smt-bootstrap.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/public/css/app.css">
   </head>
@@ -18,7 +19,7 @@
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
 
         <div class="navbar-header">
@@ -35,19 +36,15 @@
 
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class=""><a ui-sref="home">Home</a></li>
-            <li class=""><a ui-sref="login">Other ui-route</a></li>
-            <li class=""><a href="https://nenjotsu.github.io/GoGAM/">View on github</a></li>
+            <li><a ui-sref="home">Home</a></li>
+            <li><a ui-sref="login">Other ui-route</a></li>
           </ul>
 
-          <ul class="nav navbar-right navbar-nav">
-            <li>
-              <iframe src="https://ghbtns.com/github-btn.html?user=nenjotsu&amp;repo=GoGAM&amp;type=watch&amp;count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="45" style="padding: 15px 0 0 15px;"></iframe>
-            </li>
-            <li>
-              <iframe src="https://ghbtns.com/github-btn.html?user=nenjotsu&amp;repo=GoGAM&amp;type=fork&amp;count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="45" style="padding: 15px 0 0 15px;"></iframe>
-            </li>
-          </ul>
+          <div class="navbar-right navbar-form" ng-controller="mainController as vm">
+              <a type="button" href="https://nenjotsu.github.io/go-angular-mongo/" class="btn btn-inverted-white-fill btn-primary"><i class="fa fa-github"></i> View on github</a>
+              <a type="button" href="https://nenjotsu.github.io/go-angular-mongo/" class="btn btn-inverted-white btn-primary"><i class="fa fa-github"></i> Star {{vm.repoInfo.stargazers_count}}</a>
+              <a type="button" href="https://nenjotsu.github.io/go-angular-mongo/" class="btn btn-inverted-white btn-primary"><i class="fa fa-github"></i> Fork {{vm.repoInfo.forks_count}}</a>
+          </div>
         </div>
 
       </div>
@@ -68,6 +65,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-local-storage/0.5.0/angular-local-storage.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="/public/js/app.js"></script>
 

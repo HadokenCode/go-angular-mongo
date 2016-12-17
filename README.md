@@ -1,4 +1,4 @@
-# GoGAM (v0.0.0)
+# GoGAM
 GoLang + Gin + AngularJs + MongoDB Stack
 
 Web Application stack built with the following technologies:
@@ -59,6 +59,7 @@ npm update
     ```
 
 Then run the **gulp** tasks:
+The task runner will automatically rebuild the application and restart the go web server.
 
 ```bash
 # To build minified version

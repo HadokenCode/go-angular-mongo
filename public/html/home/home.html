@@ -1,23 +1,25 @@
 <div class="col-md-12">
-    <div class="panel panel-default">
-        <!-- Default panel contents -->
-        <div class="panel-heading">GoLang + Gin + Angular + MongoDB</div>
+    <div class="panel panel-primary well">
         <div class="panel-body">
-            <p>CRUD sample built with GoLang + Gin + Angular + MongoDB</p>
-            <p class="text-center">
-                <a href="https://github.com/nenjotsu/GoGAM" class="btn btn-default btn-sm">View on GitHub</a>
-                <a href="https://github.com/nenjotsu/GoGAM/zipball/master" class="btn btn-default btn-sm">Download .zip</a>
-                <a href="https://github.com/nenjotsu/GoGAM/tarball/master" class="btn btn-default btn-sm">Download .tar.gz</a>
-            </p>
-            <p class="text-center">
-                <button type="button" class="btn btn-primary btn-lg" ng-click="vm.editArticle()" data-toggle="modal" data-target="#myModal">Add New</button>
+            <h2>What is GoGAM?</h2>
+            <p>GoGam is stands for:</p>
+            <ul>
+                <li>Go (GoLang)</li>
+                <li>G (Gin Gonic)</li>
+                <li>A (AngularJS 1.x)</li>
+                <li>M (MongoDB)</li>
+            </ul>
+            <p>This is a CRUD sample built with GoLang + Gin + Angular + MongoDB stack, this can be use for web application stack.</p>
+            <p><img src="https://github.com/nenjotsu/GoGAM/blob/master/gam.png?raw=true?raw=true" alt="Alt text" title="GoLang + Angular + MongoDB"></p>
+            <hr>
+            <p>
+                <button type="button" class="btn btn-primary btn-lg" ng-click="vm.editArticle()" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Add New</button>
             </p>
         </div>
-        <!-- Table -->
         <table class="table table-hover table-bordered">
             <thead>
                 <tr>
-                    <th>Id</th>
+                    <th>ObjectId</th>
                     <th>Body</th>
                     <th>Created On</th>
                     <th>Title</th>
@@ -27,8 +29,8 @@
             <tbody>
                 <tr ng-repeat="a in vm.articleList">
                     <td>
-                        <button type="button" class="btn btn-default" ng-click="vm.editArticle(a)" data-toggle="modal" data-target="#myModal">Edit</button>
-                        <button type="button" class="btn btn-default" ng-click="vm.deleteArticle(a)">Delete <i class="fa fa-trash"></i></button>
+                        <button type="button" class="btn btn-inverted btn-primary" ng-click="vm.editArticle(a)" data-toggle="modal" data-target="#myModal">Edit</button>
+                        <button type="button" class="btn btn-inverted btn-danger" ng-click="vm.deleteArticle(a)">Delete <i class="fa fa-trash"></i></button>
                         {{a._id}}</td>
                     <td>{{a.body}}</td>
                     <td>{{a.created_on | date: "MMM-dd-yyyy hh:mm a"}}</td>
@@ -43,7 +45,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Edit Article Information</h4>
+                        <h4 class="modal-title" id="myModalLabel">Edit Record Information</h4>
                     </div>
                     <div class="modal-body">
                         <p>

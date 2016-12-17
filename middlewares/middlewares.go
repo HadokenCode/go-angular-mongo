@@ -3,10 +3,11 @@
 package middlewares
 
 import (
-	"net/http"
+	"fmt"
+	//"net/http"
 
-	"github.com/GoGAM/db"
 	"github.com/gin-gonic/gin"
+	"github.com/go-angular-mongo/db"
 )
 
 // Connect middleware clones the database session for each request and
@@ -24,7 +25,15 @@ func Connect(c *gin.Context) {
 func ErrorHandler(c *gin.Context) {
 	c.Next()
 
-	if len(c.Errors) > 0 {
-		c.Redirect(http.StatusMovedPermanently, "/public/404")
-	}
+	fmt.Println(c.Errors)
+	r := gin.Default()
+
+	r.NoRoute(func(c *gin.Context) {
+		c.JSON(404, gin.H{"code": "PAGE_NOT_FOUND", "message": "Page not found"})
+	})
+
+	//if len(c.Errors) > 0 {
+	//	fmt.Println(c.Errors)
+	//c.Redirect(http.StatusMovedPermanently, "/public/404")
+	//}
 }

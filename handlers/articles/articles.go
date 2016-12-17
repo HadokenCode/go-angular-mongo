@@ -8,8 +8,8 @@ import (
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 
-	"github.com/GoGAM/models"
 	"github.com/gin-gonic/gin"
+	"github.com/go-angular-mongo/models"
 )
 
 // Create an article
@@ -23,12 +23,13 @@ func Create(c *gin.Context) {
 		return
 	}
 
-	article.CreatedOn = tPime.Now().UnixNano() / int64(time.Millisecond)
+	article.CreatedOn = time.Now().UnixNano() / int64(time.Millisecond)
 	article.UpdatedOn = time.Now().UnixNano() / int64(time.Millisecond)
 
 	err = db.C(models.CollectionArticle).Insert(article)
 	if err != nil {
 		c.Error(err)
+		return
 	}
 }
 
@@ -39,6 +40,7 @@ func List(c *gin.Context) {
 	err := db.C(models.CollectionArticle).Find(nil).Sort("-_id").All(&articles)
 	if err != nil {
 		c.Error(err)
+		return
 	}
 
 	c.JSON(http.StatusOK, articles)
@@ -65,6 +67,7 @@ func Update(c *gin.Context) {
 	err = db.C(models.CollectionArticle).Update(query, doc)
 	if err != nil {
 		c.Error(err)
+		return
 	}
 }
 
@@ -81,5 +84,6 @@ func Delete(c *gin.Context) {
 	err = db.C(models.CollectionArticle).Remove(query)
 	if err != nil {
 		c.Error(err)
+		return
 	}
 }
