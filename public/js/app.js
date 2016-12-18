@@ -20,7 +20,7 @@
     function loginFactory($http, $q, $window, lss, $location) {
 
         var x = {
-            token: undefined
+            token: lss.get("token") || null
         };
 
         var c = {
@@ -30,17 +30,15 @@
         };
 
         return {
-
             config: function(token) {
                 return {
                     headers:{
-
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + token
-                    
                     }
                 };
             },
+
             login: function(payload){
                 var d = $q.defer();
 
@@ -70,10 +68,10 @@
 (function() {
     "use strict";
     angular.module("myapp").controller("loginController", [
-        "$scope", "$window", "loginFactory", loginController
+        "$scope", "$window", "loginFactory", "localStorageService", loginController
     ]);
 
-    function loginController($scope, $window, factory) {
+    function loginController($scope, $window, factory, lss) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -83,23 +81,23 @@
         vm.loginPayload.username = "";
         vm.loginPayload.password = "";
 
-        vm.tokenSession = "";
+        var config = lss.get("token");
+        vm.authorized = false;
+        console.log(config);
+        if(config!==null){
+            vm.authorized = true;
+            //$window.location.href = "/public/main";
+        }
+        console.log(vm.authorized);
 
         vm.login = function(){
-            factory.login(vm.loginPayload).then(function(res){
-                console.log("login", res);
+            vm.authorized = true;
+            factory.login(vm.loginPayload);
+        };
 
-                //vm.tokenSession = res.token;
-                //console.log(vm.tokenSession);
-                // if(res.token){
-                //     $window.location.href = "/public";
-                // } else {
-                //     alert("Login Failed!");
-                // }
-                
-            },function(error){
-                console.log(error);
-            });
+        vm.logout = function(){
+            lss.set("token", null);
+            $window.location.href = "/public/";
         };
     }
 
@@ -113,10 +111,12 @@
 
     function mainFactory($http, $q, loginFactory, lss) {
 
-        var config = loginFactory.config(lss.get("token"));
-
         return {
             getArticles: function(){
+                var config = loginFactory.config(lss.get("token"));
+                console.log(config);
+                console.log(lss.get("token"));
+
                 var d = $q.defer();
 
                 $http.get("/api/articles", config)
@@ -127,6 +127,7 @@
             },
 
             createArticle: function(payload){
+                var config = loginFactory.config(lss.get("token"));
                 var d = $q.defer();
 
                 $http.post("/api/new/articles/:payload", payload, config)
@@ -137,6 +138,7 @@
             },
 
             updateArticle: function(payload){
+                var config = loginFactory.config(lss.get("token"));
                 var d = $q.defer();
 
                 $http.post("/api/update/articles/:payload", payload, config)
@@ -147,6 +149,7 @@
             },
 
             deleteArticle: function(payload){
+                var config = loginFactory.config(lss.get("token"));
                 var d = $q.defer();
 
                 $http.post("/api/delete/articles/:payload", payload, config)
@@ -173,17 +176,18 @@
 (function() {
     "use strict";
     angular.module("myapp").controller("mainController", [
-        "$scope", "mainFactory", mainController
+        "$scope", "mainFactory", "localStorageService", mainController
     ]);
 
-    function mainController($scope, factory) {
+    function mainController($scope, factory, lss) {
+
+        var config = lss.get("token");
 
         /* jshint validthis: true */
         var vm = this;
         vm.transaction = 0;
         factory.getRepoInfo().then(function(res){
             vm.repoInfo = res;
-            //console.log(vm.repoInfo);
         });
 
         vm.getArticles = function(){
@@ -229,19 +233,57 @@
             });
         };
 
-        vm.getArticles();
+        vm.authorized = false;
+        console.log(config);
+        if(config!==null){
+            vm.authorized = true;
+            vm.getArticles();
+        }
+        console.log(vm.authorized);
     }
 
 })();
+
+/*(function(){
+    "use strict";
+  angular.module("myapp").factory("sessionInjector", [
+        "SessionService", SessionService
+    ]);
+
+    function SessionService() {
+        var x = {
+            token: lss.get("token") || null
+        };
+
+        var c = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + x.token
+            }
+        };
+
+        var sessionInjector = {
+            request: function(config) {
+                if (x.token!==null) {
+                    //config.headers['x-session-token'] = SessionService.token;
+                    config.headers['Authorization'] = 'Bearer ' + x.token;
+                }
+                return config;
+            }
+        };
+        return sessionInjector;
+    }
+
+}());*/
 
 
 (function() {
     "use strict";
     angular.module("myapp").config([
-        "$stateProvider", "$urlRouterProvider", "$locationProvider", "$httpProvider", "localStorageServiceProvider",
+        "$stateProvider", "$urlRouterProvider", "$locationProvider", "$httpProvider", 
+        "localStorageServiceProvider", 
 
         function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, lss) {
-            
             lss.setStorageType('sessionStorage');
             // For any unmatched url, send to /route1
             $urlRouterProvider.otherwise("/public/err404/");
@@ -267,10 +309,14 @@
 
             // use the HTML5 History API
             $locationProvider.html5Mode(true);
+
+            //$httpProvider.interceptors.push('sessionInjector');
         }
     ]);
 
 }());
+
+
 
 (function() {
     "use strict";

@@ -11,34 +11,36 @@
             </ul>
             <p>This is a CRUD sample built with GoLang + Gin + Angular + MongoDB stack, this can be use for web application stack.</p>
             <p><img src="https://github.com/nenjotsu/GoGAM/blob/master/gam.png?raw=true?raw=true" alt="Alt text" title="GoLang + Angular + MongoDB"></p>
+        </div>
+        <div ng-if="vm.authorized">
             <hr>
             <p>
                 <button type="button" class="btn btn-primary btn-lg" ng-click="vm.editArticle()" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Add New</button>
             </p>
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>ObjectId</th>
+                        <th>Body</th>
+                        <th>Created On</th>
+                        <th>Title</th>
+                        <th>Updated On</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="a in vm.articleList">
+                        <td>
+                            <button type="button" class="btn btn-inverted btn-primary" ng-click="vm.editArticle(a)" data-toggle="modal" data-target="#myModal">Edit</button>
+                            <button type="button" class="btn btn-inverted btn-danger" ng-click="vm.deleteArticle(a)">Delete <i class="fa fa-trash"></i></button>
+                            {{a._id}}</td>
+                        <td>{{a.body}}</td>
+                        <td>{{a.created_on | date: "MMM-dd-yyyy hh:mm a"}}</td>
+                        <td>{{a.title}}</td>
+                        <td>{{a.updated_on | date: "MMM-dd-yyyy hh:mm a"}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <table class="table table-hover table-bordered">
-            <thead>
-                <tr>
-                    <th>ObjectId</th>
-                    <th>Body</th>
-                    <th>Created On</th>
-                    <th>Title</th>
-                    <th>Updated On</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="a in vm.articleList">
-                    <td>
-                        <button type="button" class="btn btn-inverted btn-primary" ng-click="vm.editArticle(a)" data-toggle="modal" data-target="#myModal">Edit</button>
-                        <button type="button" class="btn btn-inverted btn-danger" ng-click="vm.deleteArticle(a)">Delete <i class="fa fa-trash"></i></button>
-                        {{a._id}}</td>
-                    <td>{{a.body}}</td>
-                    <td>{{a.created_on | date: "MMM-dd-yyyy hh:mm a"}}</td>
-                    <td>{{a.title}}</td>
-                    <td>{{a.updated_on | date: "MMM-dd-yyyy hh:mm a"}}</td>
-                </tr>
-            </tbody>
-        </table>
         <!-- Modal -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog modal-sm" role="document">
