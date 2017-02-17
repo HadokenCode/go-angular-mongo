@@ -1,0 +1,8 @@
+db.createUser({user: "myUserAdmin",pwd: "abc123",roles: [{ role: "userAdminAnyDatabase", db: "admin" }] })
+
+db.createUser({user: "nenjo",pwd: "abc123",roles: [{ role: "readWrite", db: "gogam" }] })
+
+
+mongod --auth --port 27017 -f /data/etc/mongod.conf
+
+cd /Users/apple_macintosh/Documents/GoPlayground/src/github.com/go-angular-mongo

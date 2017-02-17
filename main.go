@@ -27,7 +27,7 @@ func init() {
 func main() {
 
 	// Configure
-	router := gin.New()
+	router := gin.Default()
 
 	router.Use(gin.Logger())
 	router.Use(gin.Recovery())
@@ -37,7 +37,7 @@ func main() {
 
 	// Middlewares
 	router.Use(middlewares.Connect)
-	router.Use(middlewares.ErrorHandler)
+	//router.Use(middlewares.ErrorHandler)
 
 	// Statics
 	router.Static("/public/", "./public")
@@ -47,8 +47,6 @@ func main() {
 	// router.GET("/", func(c *gin.Context) {
 	// 	c.Redirect(http.StatusMovedPermanently, "/public/")
 	// })
-
-	http.Handle("/api", router)
 
 	authMiddleware := &jwt.GinJWTMiddleware{
 		Realm:      "admin",
@@ -78,7 +76,7 @@ func main() {
 				"code":         code,
 				"errorMessage": message,
 				"success":      false,
-				"message":      "You are not allowed to access this, please contact administrator.",
+				//"message":      "You are not allowed to access this, please contact administrator.",
 			})
 		},
 		// TokenLookup is a string in the form of "<source>:<name>" that is used
@@ -109,6 +107,12 @@ func main() {
 		auth.POST("/update/articles/:payload", articles.Update)
 		auth.POST("/delete/articles/:payload", articles.Delete)
 	}
+
+	router.NoRoute(func(c *gin.Context) {
+		c.JSON(404, gin.H{"code": "PAGE_NOT_FOUND", "message": "Page not found"})
+	})
+
+	http.Handle("/api", router)
 
 	// Start listening
 	port := Port

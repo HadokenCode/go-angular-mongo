@@ -2,7 +2,7 @@ package db
 
 import (
 	"fmt"
-	"os"
+	//"os"
 
 	"gopkg.in/mgo.v2"
 )
@@ -18,12 +18,15 @@ var (
 const (
 	// MongoDBUrl is the default mongodb url that will be used to connect to the
 	// database.
-	MongoDBUrl = "mongodb://localhost:27017/gogam"
+	MongoDBUrl = "mongodb://nenjo:abc123@localhost:27017/gogam"
+
+	//mongodb://sysop:moon@localhost/records
 )
 
 // Connect connects to mongodb
 func Connect() {
-	uri := os.Getenv("MONGODB_URL")
+	//uri := os.Getenv("MONGODB_URL")
+	uri := MongoDBUrl
 
 	if len(uri) == 0 {
 		uri = MongoDBUrl
