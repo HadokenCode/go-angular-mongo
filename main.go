@@ -54,7 +54,7 @@ func main() {
 		Realm:      "admin",
 		Key:        []byte("admin"),
 		Timeout:    time.Hour,
-		MaxRefresh: time.Hour,
+		MaxRefresh: time.Hour * 24,
 		Authenticator: func(userId string, password string, c *gin.Context) (string, bool) {
 			if (userId == "admin" && password == "admin") || (userId == "test" && password == "test") {
 				//c.Redirect(http.StatusMovedPermanently, "/public/")
