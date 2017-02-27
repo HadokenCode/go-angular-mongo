@@ -1,3 +1,2 @@
-FROM scratch
-ADD main /
-CMD ["main']
+FROM golang:onbuild
+EXPOSE 8080
