@@ -3,11 +3,11 @@
 package middlewares
 
 import (
-	//"fmt"
+	"fmt"
 	//"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/go-angular-mongo/db"
+	"github.com/gin-mongo-api/db"
 )
 
 // Connect middleware clones the database session for each request and
@@ -22,7 +22,7 @@ func Connect(c *gin.Context) {
 }
 
 // ErrorHandler is a middleware to handle errors encountered during requests
-/*func ErrorHandler(c *gin.Context) {
+func ErrorHandler(c *gin.Context) {
 	c.Next()
 
 	fmt.Println(c.Errors)
@@ -36,4 +36,4 @@ func Connect(c *gin.Context) {
 	//	fmt.Println(c.Errors)
 	//c.Redirect(http.StatusMovedPermanently, "/public/404")
 	//}
-}*/
+}

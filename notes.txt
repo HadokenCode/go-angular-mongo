@@ -3,6 +3,25 @@ db.createUser({user: "myUserAdmin",pwd: "abc123",roles: [{ role: "userAdminAnyDa
 db.createUser({user: "nenjo",pwd: "abc123",roles: [{ role: "readWrite", db: "gogam" }] })
 
 
-mongod --auth --port 27017 -f /data/etc/mongod.conf
+mongod --auth --port 27017 -f /data/etc/mongod.
+
+//Start MongoDB without access control.
+Step 1: mongod --port 27017 --dbpath /data/db
+
+//with auth
+mongod --auth --port 27017 --dbpath /data/db
+
+Connect to the instance
+Step 2: mongo --port 27017
+
+//with auth
+mongo --port 27017 -u "myUserAdmin" -p "abc123" --authenticationDatabase "admin"
+mongo --port 27017 -u "nenjo" -p "abc123" --authenticationDatabase "gogam"
 
 cd /Users/apple_macintosh/Documents/GoPlayground/src/github.com/go-angular-mongo
+
+//how to create admin user with root
+use admin
+db.createUser({user: "nenjotsu",pwd: "Qweqwe29",roles: [ { role: "root", db: "admin" } ] })
+;
+exit;

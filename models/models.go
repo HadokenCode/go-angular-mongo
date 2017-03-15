@@ -18,7 +18,12 @@ type Article struct {
 }
 
 type User struct {
-	Id       bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
-	Username string        `json:"username" form:"username" binding:"required" bson:"username"`
-	Password string        `json:"password" form:"password" binding:"required" bson:"password"`
+	Id        bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
+	Username  string        `json:"username" form:"username" binding:"required" bson:"username"`
+	Password  string        `json:"password" form:"password" binding:"required" bson:"password"`
+	Email     string        `json:"email" form:"email" bson:"email"`
+	Role      string        `json:"role" form:"role" bson:"role"`
+	Salt      string        `json:"salt" form:"salt" bson:"salt"`
+	CreatedOn int64         `json:"created_on" bson:"created_on"`
+	UpdatedOn int64         `json:"updated_on" bson:"updated_on"`
 }

@@ -9,7 +9,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 
 	"github.com/gin-gonic/gin"
-	"github.com/go-angular-mongo/models"
+	"github.com/gin-mongo-api/models"
 )
 
 // Create an article
